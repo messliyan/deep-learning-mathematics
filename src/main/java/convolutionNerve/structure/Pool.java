@@ -13,12 +13,12 @@ import lombok.Data;
 public class Pool {
   //  编号 和上层的编号一样
   //神经单元输入
-  double[][] z=new double[(ConvolutionalNerve.row-ConvolutionalNerve.filterLayers+1)/2]
-      [(ConvolutionalNerve.column-ConvolutionalNerve.filterLayers+1)/2];
+  double[][] z=new double[(ConvolutionalNerve.row-ConvolutionalNerve.filterLayers+1)/ConvolutionalNerve.max]
+      [(ConvolutionalNerve.column-ConvolutionalNerve.filterLayers+1)/ConvolutionalNerve.max];
 
   //神经单元输出=输入
-  double[][] a=new double[(ConvolutionalNerve.row-ConvolutionalNerve.filterLayers+1)/2]
-      [(ConvolutionalNerve.column-ConvolutionalNerve.filterLayers+1)/2];
+  double[][] a=new double[(ConvolutionalNerve.row-ConvolutionalNerve.filterLayers+1)/ConvolutionalNerve.max]
+      [(ConvolutionalNerve.column-ConvolutionalNerve.filterLayers+1)/ConvolutionalNerve.max];
 
 
   public static Pool init() {
@@ -31,15 +31,14 @@ public class Pool {
    * @date 2021-08-18 13:09:15
    * @return
    **/
-  public  void AP(double[][] doubles ){
-    //数组分割
-    //遍历z
+  public   Pool AP(double[][] doubles ){
+    //最大值压缩算法
     for ( int row=0;row< z.length;row++){
       for ( int column=0;column< z[row].length;column++){
-        MathUtil.Max(z);
-
+        z[row][column]=MathUtil.Max(SP(row,column,doubles));
       }
     }
+    return this;
   }
 
   /***
@@ -47,8 +46,23 @@ public class Pool {
    * @date 2021-08-18 13:09:15
    * @return
    **/
-  public  void ZP(double[][] doubles ){
-   a=z;
+  public  Pool ZP(){
+          a=z;
+    return this;
   }
 
+  /***
+   * @author jiabin  池化层拆分输入
+   * @date 2021-08-18 13:09:15
+   * @return
+   **/
+  private double[][] SP(int x,int y,double[][] doubles){
+    double[][] doubles1 = new double[ConvolutionalNerve.max][ConvolutionalNerve.max];
+    for (int i = 0; i <a.length ; i++) {
+      for (int j = 0; j <a[i].length ; j++) {
+        doubles1[i][j]=doubles[x*ConvolutionalNerve.max+i][y*ConvolutionalNerve.max+j];
+      }
+    }
+    return doubles1;
+  }
 }

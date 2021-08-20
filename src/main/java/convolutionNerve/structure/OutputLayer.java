@@ -31,4 +31,19 @@ public class OutputLayer {
     }};
   }
 
+  /***
+   * @author jiabin  设置过滤器分量、权重和偏置的初始值
+   * @date 2021-08-18 13:09:15
+   * @return
+   **/
+  public static OutputLayer initCase(){
+    return new OutputLayer(){{
+      ArrayList<OutputNeuron> outputNeurons=new ArrayList<>();
+      for (int i =0;i< ConvolutionalNerve.n;i++){
+        outputNeurons.add(OutputNeuron.initCase(i+1));
+      }
+      setOutputNeurons(outputNeurons);
+    }};
+  }
+
 }

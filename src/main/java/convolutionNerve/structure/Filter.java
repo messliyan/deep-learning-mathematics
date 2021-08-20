@@ -1,5 +1,6 @@
 package convolutionNerve.structure;
 
+import convolutionNerve.ConvolutionalNerve;
 import convolutionNerve.util.MathUtil;
 import lombok.Data;
 import lombok.Getter;
@@ -15,7 +16,7 @@ public class Filter {
   // k=编号 和上层的编号一样
 
   //关注的模式模式
-  double[][] w=new double[3][3];
+  double[][] w=new double[ConvolutionalNerve.filterLayers][ConvolutionalNerve.filterLayers];
 
   public static Filter init() {
     return new Filter(){{
@@ -24,6 +25,14 @@ public class Filter {
           w[row][column]= MathUtil.randomGaussian();
         }
       }
+      setW(this.w);
+    }};
+  }
+
+  public static Filter initCase() {
+    return new Filter(){{
+      w= new double[][]{{-1.277, -0.454, 0.358}, {1.138, -2.398, -1.664}, {-0.794, 0.899, 0.675}};
+      setW(this.w);
     }};
   }
 

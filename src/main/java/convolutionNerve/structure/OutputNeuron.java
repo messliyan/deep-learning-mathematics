@@ -14,8 +14,8 @@ public class OutputNeuron {
   int n;
 
   //神经单元输入 [i][j] 因为算法问题 部分过滤器层了 P1 P2 P3计算
-  double[][] w=new double[(ConvolutionalNerve.row-ConvolutionalNerve.filterLayers+1)/2]
-      [(ConvolutionalNerve.column-ConvolutionalNerve.filterLayers+1)/2 *ConvolutionalNerve.k];
+  double[][] w=new double[(ConvolutionalNerve.column-ConvolutionalNerve.filterLayers+1)/2 *ConvolutionalNerve.k]
+      [(ConvolutionalNerve.row-ConvolutionalNerve.filterLayers+1)/2];
 
   //神经单元加权输入
   double z;
@@ -43,18 +43,18 @@ public class OutputNeuron {
     }};
   }
 
-
   /***
-   * @author jiabin    计算神经元输入 矩阵相乘+偏置
+   * @author jiabin  设置过滤器分量、权重和偏置的初始值
    * @date 2021-08-18 13:09:15
    * @return
    **/
-  public  void ZO(double[][] doubles){
-    double[][] a1;
-//    for (double[][] doubles1:w){
-//      a1+=doubles1;
-//    }
-        z=MathUtil.SUMPRODUCTDoubleDouble(doubles,w)+b;
+  public static OutputNeuron initCase(int in){
+    return new OutputNeuron(){{
+      setN(in);
+      w=new double[][]{{-0.276 ,0.124} ,{-0.961 ,	0.718} ,{-3.680 ,-0.594} ,{0.280 	,-0.782 } ,
+          {-1.475 ,	-2.010} ,{-1.085 ,	-0.188} };
+      setB(2.05974733875712);
+    }};
   }
 
   /***
@@ -62,8 +62,19 @@ public class OutputNeuron {
    * @date 2021-08-18 13:09:15
    * @return
    **/
-  public  void AO(){
+  public  OutputNeuron ZO(double[][] doubles){
+        z=MathUtil.SUMPRODUCTDoubleDouble(doubles,w)+b;
+        return this;
+  }
+
+  /***
+   * @author jiabin    计算神经元输入 矩阵相乘+偏置
+   * @date 2021-08-18 13:09:15
+   * @return
+   **/
+  public  OutputNeuron AO(){
     a=MathUtil.Sigmoid(z);
+    return this;
   }
 
 }

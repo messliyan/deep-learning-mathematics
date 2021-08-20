@@ -24,4 +24,8 @@ public enum  PositiveSolution {
     }
     return null;
   }
+  public static int[] getCodeForEnum(PositiveSolution positiveSolution) {
+    return new int[]{positiveSolution.a,positiveSolution.b,positiveSolution.c};
+  }
+
 }

@@ -1,5 +1,7 @@
 package convolutionNerve.util;
 
+import convolutionNerve.data.PositiveSolution;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -41,5 +43,16 @@ public class MathUtil {
       MAX=MAX>Arrays.stream(doubles1).max().getAsDouble()?MAX:Arrays.stream(doubles1).max().getAsDouble();
     }
     return  MAX;
+  }
+
+  // 计算平方误差
+  public static double squareError(PositiveSolution t, ArrayList<Double> a) {
+
+    double sum=0;
+    int[] jie=t.getCodeForEnum(t);
+    for (int i = 0; i < jie.length; i++) {
+      sum+=Math.pow(jie[i]-a.get(i),2);
+    }
+    return  sum/2;
   }
 }

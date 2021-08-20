@@ -41,10 +41,9 @@ public class IterationArea {
     System.out.println("       ---------输出层-----------");
     for (OutputNeuron outputNeuron:convolutionalNerve.getOutputLayer().getOutputNeurons()){
       System.out.println("输出神经元编号： O层"+outputNeuron.getN()+"权重");
-      for(int i=0;i<  outputNeuron.getW().length;i++){
-        System.out.println("      输出神经元来源：P"+(i+1));
-        ArrayUtil.outTwoDimensionalArrayDouble(outputNeuron.getW()[i]);
-      }
+        System.out.println("      输出神经元来源：");
+        ArrayUtil.outTwoDimensionalArrayDouble(outputNeuron.getW());
+
       System.out.println("输出神经元偏差："+outputNeuron.getB());
     }
 

@@ -50,7 +50,7 @@ public class ExcelUtil {
     int startRow=2;
     int startColumn=11;
 
-    System.out.println("------------读取数据输入中--------");
+//    System.out.println("------------读取数据输入中--------");
     for (int i=0;i<96;i++){
       int[][] bitPatterns=new int[6][6];
 
@@ -74,7 +74,6 @@ public class ExcelUtil {
         setT(positiveSolution);
       }});
   }
-    System.out.println("------------读取数据输入完成！--------");
     return new TrainingData(){{
       setInputLayers(inputLayers);
     }};
